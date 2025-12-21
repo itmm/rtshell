@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-
+#include "lazy.h"
 
 // -- Logging --
 
@@ -107,12 +107,8 @@ static inline void truncate_file(off_t length) {
 	}
 }
 
-
-// -- Hauptprogramm --
-
-int main(int argc, const char* argv[]) {
-	if (argc != 2) { log_fatal("Syntax", "lazy <file path>"); }
-	fd  = open(argv[1], O_RDWR | O_CREAT, 0660);
+void process_lazy(FILE* in, const char* out) {
+	fd  = open(out, O_RDWR | O_CREAT, 0660);
 	if (fd < 0) { log_fatal_errno("Kann Datei nicht öffnen"); }
 	off_t offset = match_prefix();
 	if (got != EOF) {
@@ -120,6 +116,4 @@ int main(int argc, const char* argv[]) {
 	}
 	truncate_file(offset);
 	close(fd);
-
-	return 0;
 }
