@@ -7,12 +7,12 @@ all: $(PROJECTS)
 
 define GEN_PRJ
 $(1)
-	$$(MAKE) --directory=$$@
+	@$$(MAKE) --directory=$$@
 endef
 
 define GEN_CLN
 $(1)
-	$$(MAKE) --directory=$$(basename $$@) clean
+	@$$(MAKE) --directory=$$(basename $$@) clean
 endef
 
 $(foreach prj,$(addsuffix :,$(PROJECTS)),$(eval $(call GEN_PRJ,$(prj))))

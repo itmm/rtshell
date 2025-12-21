@@ -8,5 +8,5 @@ test: tals
 	@#$(MAKE) --directory=tests test
 
 clean:
-	@rm -f tac
+	@rm -f tals
 	@#$(MAKE) --directory=tests clean
