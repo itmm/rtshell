@@ -4,7 +4,7 @@ CFLAGS += -Wall -pedantic -Werror
 
 all: test
 
-test: lazy $(TESTS)
+test: lazy
 	@$(MAKE) --directory=tests test
 
 clean:
