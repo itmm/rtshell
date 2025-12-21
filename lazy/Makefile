@@ -1,12 +1,8 @@
-.PHONY: all test clean
-
-CFLAGS += -Wall -pedantic -Werror
-
-all: test
+include ../Makefile.base
 
 test: lazy
-	@$(MAKE) --directory=tests test
+	@$(MAKE) sub_test
 
 clean:
 	@rm -f lazy
-	@$(MAKE) --directory=tests clean
+	@$(MAKE) sub_test_clean

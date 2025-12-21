@@ -1,8 +1,8 @@
+include ../../Makefile.base
+
 TESTS := test_simple test_escaping test_cascading test_empty test_empty_files
 
-.PHONY: all test $(TESTS) clean
-
-all: test
+.PHONY: $(TESTS)
 
 test_simple:
 	@echo "abc" > a

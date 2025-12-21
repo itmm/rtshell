@@ -1,0 +1,12 @@
+.PHONY: all test clean sub_test sub_test_clean
+
+CFLAGS += -std=c17 -O3 -Wall -pedantic -Werror
+
+all: test
+
+sub_test:
+	@$(MAKE) --directory=tests
+
+sub_test_clean:
+	@$(MAKE) --directory=tests clean
+
