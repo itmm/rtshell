@@ -1,16 +1,11 @@
-#include <errno.h>
 #include <stdbool.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "log/log.h"
 
 static inline void process(const char* path) {
 	printf("%%file %s\n", path);
 	FILE *f = fopen(path, "r");
-	if (! f) {
-		fprintf(stderr, "Kann Datei nicht öffnen: %s\n", strerror(errno));
-		exit(10);
-	}
+	if (! f) { log_fatal_errno("Kann Datei nicht öffnen"); }
 
 	bool last_is_newline = true;
 	int ch;
@@ -21,10 +16,7 @@ static inline void process(const char* path) {
 		putchar(ch);
 		last_is_newline = (ch == '\n');
 	}
-	if (ferror(f)) {
-		fprintf(stderr, "Kann Datei nicht lesen: %s\n", strerror(errno));
-		exit(10);
-	}
+	if (ferror(f)) { log_fatal_errno("Kann Datei nicht lesen"); }
 	if (! last_is_newline) { putchar('\n'); }
 
 	fclose(f);

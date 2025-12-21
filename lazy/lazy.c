@@ -107,4 +107,6 @@ void process_lazy(FILE* in, const char* out) {
 	}
 	truncate_file(&state);
 	close(state.fd);
+
+	if (ferror(state.in)) { log_fatal_errno("Fehler beim Lesen"); }
 }
