@@ -1,4 +1,4 @@
-TESTS := test_simple test_escaping test_cascading
+TESTS := test_simple test_escaping test_cascading test_empty test_empty_files
 
 .PHONY: all test $(TESTS) clean
 
@@ -27,7 +27,18 @@ test_cascading:
 	@diff t e
 	@rm a t tt e
 
+test_empty:
+	@../tac > t
+	@cat /dev/null > e
+	@diff t e
+	@rm t e
+
 test: $(TESTS)
+	@cat /dev/null > a
+	@../tac a a > t
+	@echo "%file a\n%file a" > e
+	@diff t e
+	@rm a t e
 
 clean:
 	@rm -f t e
