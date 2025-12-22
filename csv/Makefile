@@ -1,12 +1,11 @@
 include ../Makefile.base
+include Makefile.lib
 
 lib: libcsv.a
 
 libcsv.a: csv.o
 	@echo building $@
 	@$(AR) -rc $@ $^
-
-csv.o: csv.h ../log/log.h
 
 test: libcsv.a
 	@#$(MAKE) sub_test

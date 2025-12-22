@@ -1,0 +1,4 @@
+../lazy/liblazy.a: ../lazy/lazy.o
+	@$(MAKE) --quite --directory=../lazy liblazy.a
+
+../lazy/lazy.o: ../lazy/lazy.h ../log/log.h

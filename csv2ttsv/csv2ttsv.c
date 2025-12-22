@@ -1,7 +1,6 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "log/log.h"
 #include "csv/csv.h"
 #include "ttsv/ttsv.h"
 
@@ -11,14 +10,16 @@ static void do_line(struct Csv_State* csv) {
         while ((ch = next_char_in_csv_cell(csv)) != EOF) {
             write_ttsv_ch(stdout, ch);
         }
-        if (! has_more_csv_cells(state)) { break; }
+        if (! has_more_csv_cells(csv)) { next_ttsv_line(stdout); break; }
         next_ttsv_cell(stdout);
     }
 }
 
 int main(void) {
     struct Csv_State* csv = alloc_csv_state(stdin);
-    do {
+    for (;;) {
         do_line(csv);
-    } while (has_more_csv_lines(state));
+		  if (! has_more_csv_lines(csv)) { break; }
+    }
+	 return 0;
 }

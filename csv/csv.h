@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-#define CSV_SEPARATOR ';'
+#define CSV_SEPARATOR ','
 
 struct Csv_State;
 

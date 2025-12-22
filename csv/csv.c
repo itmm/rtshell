@@ -3,8 +3,6 @@
 #include <stdlib.h>
 #include "log/log.h"
 
-#define CSV_SEPARATOR ';'
-
 struct Csv_State {
     FILE* in;
     int next;
@@ -15,14 +13,13 @@ static void check_state(struct Csv_State* state) {
     if (! state) { log_fatal("null pointer", "check_state"); }
 }
 
-static int get_next_ch(struct Csv_State* state) {
+static void get_next_ch(struct Csv_State* state) {
     state->next = fgetc(state->in);
     if (state->next == EOF) {
         if (ferror(state->in)) {
             log_fatal_errno("Fehler beim Lesen");
         }
     }
-    return state->next;
 }
 
 int next_char_in_csv_cell(struct Csv_State* state) {

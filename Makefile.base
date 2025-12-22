@@ -1,4 +1,4 @@
-.PHONY: all test clean sub_test sub_test_clean lib log_lib
+.PHONY: all test clean sub_test sub_test_clean lib
 
 CFLAGS += -std=c17 -O3 -Wall -pedantic -Werror -I..
 
@@ -10,8 +10,3 @@ sub_test:
 sub_test_clean:
 	@$(MAKE) --directory=tests clean
 
-log_lib:
-	@$(MAKE) --directory=../log liblog.a
-
-csv_lib:
-	@$(MAKE) --directory=../csv libcsv.a

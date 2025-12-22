@@ -1,12 +1,11 @@
 include ../Makefile.base
+include Makefile.lib
 
 lib: liblog.a
 
 liblog.a: log.o
 	@echo building $@
 	@$(AR) -rc $@ $^
-
-log.o: log.h
 
 test: liblog.a
 	@#$(MAKE) sub_test

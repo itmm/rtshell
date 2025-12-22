@@ -1,0 +1,4 @@
+../ttsv/libttsv.a: ../ttsv/ttsv.o
+	@$(MAKE) --quiet --directory=../ttsv libttsv.a
+
+../ttsv/ttsv.o: ../ttsv/ttsv.h ../log/log.h
