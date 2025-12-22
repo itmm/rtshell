@@ -54,33 +54,33 @@ int next_char_in_csv_cell(struct Csv_State* state) {
     return ch;
 }
 
-void next_csv_cell(struct Csv_State* state) {
+bool has_more_csv_cells(struct Csv_State* state) {
     check_state(state);
     int ch = state->next;
-    if (ch == EOF || ch == '\n') { return; }
-    if (ch == CSV_SEPARATOR) { get_next_ch(state); return; }
+    if (ch == EOF || ch == '\n') { return false; }
+    if (ch == CSV_SEPARATOR) { get_next_ch(state); return true; }
     log_fatal("Unerwartetes Zeichen in next_cell", "");
+    return false;
 }
 
 void eat_csv_cell(struct Csv_State* state) {
     while (next_char_in_csv_cell(state) != EOF) { }
-    next_csv_cell(state);
 }
 
-void next_csv_line(struct Csv_State* state) {
+bool has_more_csv_lines(struct Csv_State* state) {
     check_state(state);
     int ch = state->next;
-    if (ch == EOF) { return; }
-    if (ch == '\n') { get_next_ch(state); return; }
+    if (ch == EOF) { return false; }
+    if (ch == '\n') { get_next_ch(state); return true; }
     log_fatal("Unerwartetes Zeichen in next_line", "");
+    return false;
 }
 
 void eat_csv_line(struct Csv_State* state) {
     check_state(state);
-    while (state->next != EOF && state->next != '\n') {
+    while (has_more_csv_cells(state)) {
         eat_csv_cell(state);
     }
-    next_csv_line(state);
 }
 
 struct Csv_State* alloc_csv_state(FILE* in) {
