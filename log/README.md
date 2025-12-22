@@ -19,6 +19,8 @@ Header in `log.h`:
 Source in `log.c`:
 
 ```c
+#include "log.h"
+
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>

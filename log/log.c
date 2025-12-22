@@ -1,4 +1,6 @@
 #line 22 "README.md"
+#include "log.h"
+
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
