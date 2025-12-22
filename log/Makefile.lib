@@ -1,4 +1,4 @@
 ../log/liblog.a: ../log/log.o
 	$(MAKE) --quiet --directory=../log liblog.a
 
-../log/log.o: ../log/log.h
+include Makefile.deps

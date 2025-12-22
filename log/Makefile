@@ -1,13 +1,13 @@
 include ../Makefile.base
-include Makefile.lib
+include Makefile.deps
 
-lib: liblog.a
+lib: ../log/liblog.a
 
-liblog.a: log.o
+../log/liblog.a: ../log/log.o
 	@echo building $@
 	@$(AR) -rc $@ $^
 
-test: liblog.a
+test: ../log/liblog.a
 	@#$(MAKE) sub_test
 
 clean:
