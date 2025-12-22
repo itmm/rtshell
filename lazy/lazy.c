@@ -4,10 +4,12 @@
 #include "lazy.h"
 #include "log/log.h"
 
+int ftruncate(int fd, long length);
+
 struct State {
 	FILE* in;
 	int fd;
-	off_t offset;
+	long offset;
 	char* cur;
 	const char* end;
 	int ch;
@@ -19,7 +21,7 @@ struct State {
 static inline int read_char(struct State* state) {
 	if (! state->end) { return EOF; }
 	if (state->cur >= state->end) {
-		off_t got = read(state->fd, state->buffer, sizeof(state->buffer));
+		long got = read(state->fd, state->buffer, sizeof(state->buffer));
 		if (got > 0) {
 			state->cur = state->buffer;
 			state->end = state->cur + got;
@@ -50,9 +52,9 @@ static inline void match_prefix(struct State* state) {
 // -- Rest der Ausgabe in Datei schreiben --
 
 static void write_buffer(struct State* state) {
-	off_t size = state->cur - state->buffer;
+	long size = state->cur - state->buffer;
 	if (size > 0) {
-		off_t written = write(state->fd, state->buffer, size);
+		long written = write(state->fd, state->buffer, size);
 		if (written != size) { log_fatal_errno("Kann nicht schreiben"); }
 	}
 	state->cur = state->buffer;
@@ -68,7 +70,7 @@ static inline void write_char(struct State* state) {
 static inline void overwrite_rest(struct State* state) {
 	state->cur = state->buffer;
 	state->end = state->buffer + sizeof(state->buffer);
-	off_t pos = lseek(state->fd, state->offset, SEEK_SET);
+	long pos = lseek(state->fd, state->offset, SEEK_SET);
 	if (pos != state->offset) {
 		log_fatal_errno("Kann Cursor nicht neu setzen");
 	}
@@ -84,7 +86,7 @@ static inline void overwrite_rest(struct State* state) {
 // -- Dateigröße auf geschriebene Daten reduzieren --
 
 static inline void truncate_file(const struct State* state) {
-	off_t size = lseek(state->fd, 0, SEEK_END);
+	long size = lseek(state->fd, 0, SEEK_END);
 	if (size < 0) { log_fatal_errno("Kann Dateiende nicht ermitteln"); }
 	if (size != state->offset) {
 		if (ftruncate(state->fd, state->offset) < 0) {

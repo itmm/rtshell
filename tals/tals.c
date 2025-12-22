@@ -23,7 +23,7 @@ void list_file(void) {
 
 	if (ch != EOF) { ch = getchar(); }
 
-	off_t size = 0;
+	long size = 0;
 	bool last_is_newline = true;
 
 	for (;;) {
@@ -39,7 +39,7 @@ void list_file(void) {
 		if (ch != '%') { break; }
 	}
 
-	printf("%lld\n", size);
+	printf("%ld\n", size);
 }
 
 int main(void) {
