@@ -2,6 +2,10 @@
 
 ## Wer soll sich um Log-Dateien kümmern?
 
+Die Programme loggen alle über die Standard-Fehlerausgabe. Das System, welches
+die Programme aufruft, muss sicherstellen, dass die Ausgabe in Dateien
+archiviert wird. Und ebenso, dass diese Dateien nicht zu groß werden.
+
 ## Einfaches Interface
 
 Header in `log.h`:
