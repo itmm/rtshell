@@ -1,9 +1,21 @@
 include ../../Makefile.base
 
-TESTS := test_no_output test_change test_increase test_decrease \
-	test_truncate test_dont_modify test_dont_modify_big
+TESTS := test_no_output \
+    test_change \
+    test_increase \
+    test_decrease \
+    test_truncate \
+    test_dont_modify \
+    test_dont_modify_big \
+
 
 .PHONY: $(TESTS)
+
+test: $(TESTS)
+	@echo tested lazy
+
+clean:
+	@rm -f t e
 
 test_no_output:
 	@rm -f t
@@ -52,8 +64,3 @@ test_dont_modify_big:
 	@[ old-big.txt -ot e ]
 	@rm e
 
-test: $(TESTS)
-	@echo tested lazy
-
-clean:
-	@rm -f t e

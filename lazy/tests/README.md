@@ -1,12 +1,22 @@
-In `./Makefile`:
+# Tests von `lazy`
+
+Die Tests werden im `./Makefile` durchgeführt. Hier erst mal den Rahmen mit
+einem ersten Test. Wenn keine Daten gesendet werden, soll die Zieldatei auch
+leer sein:
 
 ```Makefile
 include ../../Makefile.base
 
-TESTS := test_no_output test_change test_increase test_decrease \
-	test_truncate test_dont_modify test_dont_modify_big
+TESTS := test_no_output \
+
 
 .PHONY: $(TESTS)
+
+test: $(TESTS)
+	@echo tested lazy
+
+clean:
+	@rm -f t e
 
 test_no_output:
 	@rm -f t
@@ -15,6 +25,16 @@ test_no_output:
 	@diff t e
 	@rm t e
 
+```
+
+## `test_change`
+
+
+```Makefile
+// ...
+TESTS := test_no_output \
+    test_change \
+// ...
 test_change:
 	@echo "abc" > t
 	@echo "xyz" > e
@@ -22,6 +42,16 @@ test_change:
 	@diff t e
 	@rm t e
 
+```
+
+
+## `test_increase`
+
+```Makefile
+// ...
+    test_change \
+    test_increase \
+// ...
 test_increase:
 	@echo "abc" > t
 	@echo "abcdef" > e
@@ -29,6 +59,16 @@ test_increase:
 	@diff t e
 	@rm t e
 
+```
+
+
+## `test_decrease`
+
+```Makefile
+// ...
+    test_increase \
+    test_decrease \
+// ...
 test_decrease:
 	@echo "abcdef" > t
 	@echo "abc" > e
@@ -36,6 +76,15 @@ test_decrease:
 	@diff t e
 	@rm t e
 
+```
+
+## `test_truncate`
+
+```Makefile
+// ...
+    test_decrease \
+    test_truncate \
+// ...
 test_truncate:
 	@echo "abc" > t
 	@cat /dev/null > e
@@ -43,21 +92,35 @@ test_truncate:
 	@diff t e
 	@rm t e
 
+```
+
+## `test_dont_modify`
+
+```Makefile
+// ...
+    test_truncate \
+    test_dont_modify \
+// ...
 test_dont_modify:
 	@cp old-file.txt e
 	@cat e | ../lazy old-file.txt
 	@[ old-file.txt -ot e ]
 	@rm e
 
+```
+
+## `test_dont_modify_big`
+
+```Makefile
+// ...
+    test_dont_modify \
+    test_dont_modify_big \
+// ...
 test_dont_modify_big:
 	@cp old-big.txt e
 	@cat e | ../lazy old-big.txt
 	@[ old-big.txt -ot e ]
+    @echo xxx
 	@rm e
 
-test: $(TESTS)
-	@echo tested lazy
-
-clean:
-	@rm -f t e
 ```
