@@ -190,5 +190,5 @@ In `Makefile.deps`:
 
 ## Tests
 
-Die Test für `lazy` befinden sich im Ordner (tests)[tests/README.md].
+Die Test für `lazy` befinden sich im Ordner [tests](tests/).
 
