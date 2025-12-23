@@ -13,7 +13,7 @@ auch bei Abbrüchen Korrekturen und Weiterverarbeitung erlauben.
   * Lazy Writing
 
 * Programmierstyle
-  * Logging
+  * [Logging](log/README.md)
   * Konfiguration
   * Standard-Eingabe/-Ausgabe
 
