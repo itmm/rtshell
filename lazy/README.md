@@ -187,3 +187,8 @@ In `Makefile.deps`:
 ```Makefile
 ../lazy/lazy.o: ../lazy/lazy.h ../log/log.h
 ```
+
+## Tests
+
+Die Test für `lazy` befinden sich im Ordner (tests)[tests/README.md].
+
