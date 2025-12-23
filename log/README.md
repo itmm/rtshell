@@ -133,7 +133,7 @@ kann die Datei `Makefile.lib` eingebunden werden:
 
 ```Makefile
 ../log/liblog.a: ../log/log.o
-	$(MAKE) --quiet --directory=../log liblog.a
+	$(MAKE) --directory=../log liblog.a
 
 include ../log/Makefile.deps
 ```
