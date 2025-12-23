@@ -1,4 +1,9 @@
-In `main.c`:
+# lazy Schreiben in Dateien
+
+Die Bau-Umgebung ist in [build.md](build.md) beschrieben.
+
+Die eigentliche Funktionalität ist in eine Bibliothek gepackt. Das eigentliche
+Programm in `main.c` wird dadurch sehr übersichtlich:
 
 ```c
 #include "lazy.h"
@@ -11,7 +16,7 @@ int main(int argc, const char* argv[]) {
 }
 ```
 
-In `lazy.h`:
+Der Header zur Bibliothek in `lazy.h` exportiert nur eine einzelne Funktion:
 
 ```c
 #if !defined(lazy_h)
@@ -24,7 +29,34 @@ In `lazy.h`:
 #endif
 ```
 
-In `lazy.c`:
+Aber dahinter verbergen sich in `lazy.c` mehrere Schritte:
+
+```c
+#include "lazy.h"
+
+void process_lazy(FILE* in, const char* out) {
+	if (! in || ! out) { log_fatal("invalid arguments", "process_lazy"); }
+
+    // open output
+    // match prefix
+    // write rest into file
+    // trim file length
+    // close output
+	struct State state;
+	state.fd  = open(out, O_RDWR | O_CREAT, 0660);
+	if (state.fd < 0) { log_fatal_errno("Kann Datei nicht öffnen"); }
+	state.in = in;
+	state.offset = 0;
+	match_prefix(&state);
+	if (state.ch != EOF) {
+		overwrite_rest(&state);
+	}
+	truncate_file(&state);
+	close(state.fd);
+
+	if (ferror(state.in)) { log_fatal_errno("Fehler beim Lesen"); }
+}
+```
 
 ```c
 #include <fcntl.h>
@@ -33,7 +65,9 @@ In `lazy.c`:
 #include "lazy.h"
 #include "log/log.h"
 
-#if _BSD_SOURCE || _XOPEN_SOURCE >= 500 || _XOPEN_VERSION >= 500 || _XOPEN_SOURCE && _XOPEN_SOURCE_EXTENDED || /* Since glibc 2.3.5: */ _POSIX_C_SOURCE >= 200112L
+#if _BSD_SOURCE || _XOPEN_SOURCE >= 500 || _XOPEN_VERSION >= 500 || \
+    _XOPEN_SOURCE && _XOPEN_SOURCE_EXTENDED || \
+    /* Since glibc 2.3.5: */ _POSIX_C_SOURCE >= 200112L
 #else
 	int ftruncate(int fd, long length);
 #endif
@@ -145,50 +179,3 @@ void process_lazy(FILE* in, const char* out) {
 	if (ferror(state.in)) { log_fatal_errno("Fehler beim Lesen"); }
 }
 ```
-
-In `./Makefile`:
-
-```Makefile
-include ../Makefile.base
-include ../log/Makefile.lib
-include Makefile.deps
-
-lib: liblazy.a
-
-liblazy.a: ../lazy/lazy.o
-	@echo building $@
-	@$(AR) -rc $@ $^
-
-main.o: ../lazy/lazy.h ../log/log.h
-
-lazy: main.o liblazy.a ../log/liblog.a
-	@echo building $@
-	@$(CC) main.o -L. -llazy -L../log -llog -o $@
-
-test: lazy
-	@$(MAKE) sub_test
-
-clean:
-	@rm -f lazy liblazy.a lazy.o main.o
-	@$(MAKE) sub_test_clean
-```
-
-In `Makefile.lib`:
-
-```Makefile
-include Makefile.deps
-
-../lazy/liblazy.a: ../lazy/lazy.o
-	@$(MAKE) --quite --directory=../lazy liblazy.a
-```
-
-In `Makefile.deps`:
-
-```Makefile
-../lazy/lazy.o: ../lazy/lazy.h ../log/log.h
-```
-
-## Tests
-
-Die Test für `lazy` befinden sich im Ordner [tests](tests/).
-

@@ -1,11 +1,13 @@
-#line 30 "README.md"
+#line 34 "README.md"
 #include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>
 #include "lazy.h"
 #include "log/log.h"
 
-#if _BSD_SOURCE || _XOPEN_SOURCE >= 500 || _XOPEN_VERSION >= 500 || _XOPEN_SOURCE && _XOPEN_SOURCE_EXTENDED || /* Since glibc 2.3.5: */ _POSIX_C_SOURCE >= 200112L
+#if _BSD_SOURCE || _XOPEN_SOURCE >= 500 || _XOPEN_VERSION >= 500 || \
+    _XOPEN_SOURCE && _XOPEN_SOURCE_EXTENDED || \
+    /* Since glibc 2.3.5: */ _POSIX_C_SOURCE >= 200112L
 #else
 	int ftruncate(int fd, long length);
 #endif
