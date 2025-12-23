@@ -1,4 +1,32 @@
-#line 30 "README.md"
+In `main.c`:
+
+```c
+#include "lazy.h"
+#include "log/log.h"
+
+int main(int argc, const char* argv[]) {
+	if (argc != 2) { log_fatal("Syntax", "lazy <file path>"); }
+	process_lazy(stdin, argv[1]);
+	return 0;
+}
+```
+
+In `lazy.h`:
+
+```c
+#if !defined(lazy_h)
+#define lazy_h
+
+	#include <stdio.h>
+
+	void process_lazy(FILE* in, const char* out);
+
+#endif
+```
+
+In `lazy.c`:
+
+```c
 #include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -116,3 +144,46 @@ void process_lazy(FILE* in, const char* out) {
 
 	if (ferror(state.in)) { log_fatal_errno("Fehler beim Lesen"); }
 }
+```
+
+In `./Makefile`:
+
+```Makefile
+include ../Makefile.base
+include ../log/Makefile.lib
+include Makefile.deps
+
+lib: liblazy.a
+
+liblazy.a: ../lazy/lazy.o
+	@echo building $@
+	@$(AR) -rc $@ $^
+
+main.o: ../lazy/lazy.h ../log/log.h
+
+lazy: main.o liblazy.a ../log/liblog.a
+	@echo building $@
+	@$(CC) main.o -L. -llazy -L../log -llog -o $@
+
+test: lazy
+	@$(MAKE) sub_test
+
+clean:
+	@rm -f lazy liblazy.a lazy.o main.o
+	@$(MAKE) sub_test_clean
+```
+
+In `Makefile.lib`:
+
+```Makefile
+include Makefile.deps
+
+../lazy/liblazy.a: ../lazy/lazy.o
+	@$(MAKE) --quite --directory=../lazy liblazy.a
+```
+
+In `Makefile.deps`:
+
+```Makefile
+../lazy/lazy.o: ../lazy/lazy.h ../log/log.h
+```

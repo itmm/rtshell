@@ -1,0 +1,1 @@
+../lazy/lazy.o: ../lazy/lazy.h ../log/log.h

@@ -1,14 +1,14 @@
 include ../Makefile.base
 include ../log/Makefile.lib
-include Makefile.lib
+include Makefile.deps
 
 lib: liblazy.a
 
-liblazy.a: lazy.o
+liblazy.a: ../lazy/lazy.o
 	@echo building $@
 	@$(AR) -rc $@ $^
 
-main.o: lazy.h ../log/log.h
+main.o: ../lazy/lazy.h ../log/log.h
 
 lazy: main.o liblazy.a ../log/liblog.a
 	@echo building $@
