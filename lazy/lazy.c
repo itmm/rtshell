@@ -111,31 +111,36 @@ static inline void truncate_file(const struct State* state) {
 #include "log/log.h"
 
 void process_lazy(FILE* in, const char* out) {
+	if (! in || ! out) { log_fatal("invalid arguments", "process_lazy"); }
 #line 174
-    // open output
+	// open output
 	struct State state;
 	state.fd  = open(out, O_RDWR | O_CREAT, 0660);
 	if (state.fd < 0) { log_fatal_errno("Kann Datei nicht öffnen"); }
 	state.in = in;
 	state.offset = 0;
 #line 181
-    // match prefix
+	// match prefix
 	match_prefix(&state);
 #line 184
-    // write rest into file
+	// write rest into file
 	if (state.ch != EOF) {
 		overwrite_rest(&state);
 	}
-#line 189
-    // trim file length
-	truncate_file(&state);
-#line 192
-    // close output
-	close(state.fd);
 
-	if (ferror(state.in)) { log_fatal_errno("Fehler beim Lesen"); }
-#line 39
-	if (! in || ! out) { log_fatal("invalid arguments", "process_lazy"); }
+	if (ferror(state.in)) {
+		close(state.fd);
+		log_fatal_errno("Fehler beim Lesen");
+		return;
+	}
+
+#line 196
+	// trim file length
+	truncate_file(&state);
+#line 199
+	// close output
+	close(state.fd);
+#line 40
 
     // open output
     // match prefix

@@ -170,29 +170,34 @@ static inline void truncate_file(const struct State* state) {
 
 // ...
 void process_lazy(FILE* in, const char* out) {
-    // ...
-    // open output
+	// ...
+	// open output
 	struct State state;
 	state.fd  = open(out, O_RDWR | O_CREAT, 0660);
 	if (state.fd < 0) { log_fatal_errno("Kann Datei nicht öffnen"); }
 	state.in = in;
 	state.offset = 0;
-    // ...
-    // match prefix
+	// ...
+	// match prefix
 	match_prefix(&state);
-    // ...
-    // write rest into file
+	// ...
+	// write rest into file
 	if (state.ch != EOF) {
 		overwrite_rest(&state);
 	}
-    // ...
-    // trim file length
-	truncate_file(&state);
-    // ...
-    // close output
-	close(state.fd);
 
-	if (ferror(state.in)) { log_fatal_errno("Fehler beim Lesen"); }
+	if (ferror(state.in)) {
+		close(state.fd);
+		log_fatal_errno("Fehler beim Lesen");
+		return;
+	}
+
+	// ...
+	// trim file length
+	truncate_file(&state);
+	// ...
+	// close output
+	close(state.fd);
 // ...
 }
 ```
