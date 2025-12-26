@@ -38,11 +38,11 @@ Aber dahinter verbergen sich in `lazy.c` mehrere Schritte:
 void process_lazy(FILE* in, const char* out) {
 	if (! in || ! out) { log_fatal("invalid arguments", "process_lazy"); }
 
-    // open output
-    // match prefix
-    // write rest into file
-    // trim file length
-    // close output
+	// open output
+	// match prefix
+	// write rest into file
+	// trim file length
+	// close output
 }
 ```
 
@@ -83,8 +83,8 @@ struct State {
 };
 
 #if _BSD_SOURCE || _XOPEN_SOURCE >= 500 || _XOPEN_VERSION >= 500 || \
-    _XOPEN_SOURCE && _XOPEN_SOURCE_EXTENDED || \
-    /* Since glibc 2.3.5: */ _POSIX_C_SOURCE >= 200112L
+	_XOPEN_SOURCE && _XOPEN_SOURCE_EXTENDED || \
+	/* Since glibc 2.3.5: */ _POSIX_C_SOURCE >= 200112L
 #else
 	int ftruncate(int fd, long length);
 #endif

@@ -22,8 +22,8 @@ struct State {
 #line 84
 
 #if _BSD_SOURCE || _XOPEN_SOURCE >= 500 || _XOPEN_VERSION >= 500 || \
-    _XOPEN_SOURCE && _XOPEN_SOURCE_EXTENDED || \
-    /* Since glibc 2.3.5: */ _POSIX_C_SOURCE >= 200112L
+	_XOPEN_SOURCE && _XOPEN_SOURCE_EXTENDED || \
+	/* Since glibc 2.3.5: */ _POSIX_C_SOURCE >= 200112L
 #else
 	int ftruncate(int fd, long length);
 #endif
@@ -142,9 +142,9 @@ void process_lazy(FILE* in, const char* out) {
 	close(state.fd);
 #line 40
 
-    // open output
-    // match prefix
-    // write rest into file
-    // trim file length
-    // close output
+	// open output
+	// match prefix
+	// write rest into file
+	// trim file length
+	// close output
 }
