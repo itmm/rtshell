@@ -1,25 +1,20 @@
-#if !defined(csv_h)
-#define csv_h
+#pragma once
 
-#include <stdbool.h>
-#include <stdio.h>
+#include <iostream>
 
-#define CSV_SEPARATOR ','
+namespace csv {
 
-struct Csv_State;
+	class Reader {
+			std::istream& in_;
+			int ch_;
 
-int next_char_in_csv_cell(struct Csv_State* state);
+		public:
+			static const char SEPARATOR = ',';
 
-bool has_more_csv_cells(struct Csv_State* state);
+			Reader(std::istream& in): in_ { in }, ch_ { in_.get() } { }
+			
+			bool read_next_cell_in_line(std::string& value);
+			bool goto_next_line();
+	};
 
-void eat_csv_cell(struct Csv_State* state);
-
-bool has_more_csv_lines(struct Csv_State* state);
-
-void eat_csv_line(struct Csv_State* state);
-
-struct Csv_State* alloc_csv_state(FILE* in);
-
-void free_csv_state(struct Csv_State* state);
-
-#endif
+}

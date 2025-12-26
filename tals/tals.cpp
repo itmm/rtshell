@@ -3,9 +3,9 @@
 
 #include "log/log.h"
 
-int ch;
+static int ch;
 
-bool match(const char* p) {
+static inline bool match(const char* p) {
 	while (*p) {
 		if (ch != *p) { return false; }
 		++p;
@@ -14,7 +14,7 @@ bool match(const char* p) {
 	return true;
 }
 
-void list_file(void) {
+static inline void list_file(void) {
 	if (! match("file ")) { log_fatal("kein ta-Archiv", "Datei-Präfix"); }
 
 	while (ch >= 0 && ch != '\n') {

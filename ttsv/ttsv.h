@@ -1,12 +1,20 @@
-#if !defined(ttsv_h)
-#define ttsv_h
+#pragma once
 
-#include <stdio.h>
+#include <iostream>
+#include <string>
 
-void next_ttsv_cell(FILE* out);
-void next_ttsv_line(FILE* out);
+namespace ttsv {
+	
+	class Writer {
+			std::ostream& out_;
+			std::string cell_prefix_;
 
-void write_ttsv_ch(FILE* out, char ch);
-void write_ttsv_str(FILE* out, const char* str);
+		public:
+			Writer(std::ostream& out): out_ { out } { }
+			void write_cell(const std::string& value);
+			void close_line();
+			
+	};
+		
+};
 
-#endif

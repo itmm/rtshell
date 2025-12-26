@@ -1,6 +1,5 @@
 .PHONY: all test clean test_prefix sub_test sub_test_clean
 
-CFLAGS += -std=c17 -O3 -Wall -pedantic -Werror -I..
 CXXFLAGS += -std=c++20 -O3 -Wall -pedantic -Werror -I..
 
 all: .mdp_run
@@ -10,10 +9,6 @@ all: .mdp_run
 	@[ -x "$$(command -v mdp)" ] || echo "mdp not installed" 1>&2
 	@[ -x "$$(command -v mdp)" ] && mdp README.md
 	@date >$@
-
-%.o: %.c
-	@echo cc $@
-	@$(CC) $(CFLAGS) -c $<
 
 %.o: %.cpp
 	@echo c++ $@
