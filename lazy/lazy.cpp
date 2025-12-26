@@ -1,60 +1,4 @@
-# lazy Schreiben in Dateien
-
-Die Bau-Umgebung ist in [build.md](build.md) beschrieben.
-
-Die eigentliche Funktionalität ist in eine Bibliothek gepackt. Das eigentliche
-Programm in `main.cpp` wird dadurch sehr übersichtlich:
-
-```c
-#include "lazy.h"
-extern "C" {
-	#include "log/log.h"
-}
-
-int main(int argc, const char* argv[]) {
-	if (argc != 2) { log_fatal("Syntax", "lazy <file path>"); }
-	process_lazy(std::cin, argv[1]);
-	return 0;
-}
-```
-
-Der Header zur Bibliothek in `lazy.h` exportiert eine Klasse mit einer
-öffentlichen Methode:
-
-```c++
-#if !defined(lazy_h)
-#define lazy_h
-
-	#include <cstdint>
-	#include <cstdio>
-	#include <fstream>
-	#include <iostream>
-	#include <string>
-
-	class Lazy {
-			std::istream& in_;
-			const std::string out_path_;
-			std::fstream out_;
-			int ch_ { ' ' };
-			std::uintmax_t offset_ { 0 };
-
-			void match_prefix_();
-			void overwrite_rest_();
-			void truncate_file_();
-
-		public:
-			Lazy(std::istream& in, const std::string& out_path);
-			void process();
-	};
-
-	void process_lazy(std::istream& in, const char* out_path);
-
-#endif
-```
-
-Aber dahinter verbergen sich in `lazy.cpp` mehrere Schritte:
-
-```c
+#line 58 "README.md"
 #include "lazy.h"
 
 extern "C" {
@@ -125,5 +69,3 @@ void process_lazy(std::istream& in, const char* out_path) {
 	Lazy lazy { in, out_path };
 	lazy.process();
 }
-```
-

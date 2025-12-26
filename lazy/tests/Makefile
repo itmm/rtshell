@@ -1,3 +1,5 @@
+APP := lazy
+
 include ../../Makefile.base
 
 TESTS := test_no_output \
@@ -11,8 +13,8 @@ TESTS := test_no_output \
 
 .PHONY: $(TESTS)
 
-test: $(TESTS)
-	@echo tested lazy
+test: test_prefix $(TESTS)
+	@echo ok
 
 clean:
 	@rm -f t e

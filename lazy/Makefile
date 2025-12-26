@@ -12,7 +12,7 @@ main.o: ../lazy/lazy.h ../log/log.h
 
 lazy: main.o liblazy.a ../log/liblog.a
 	@echo building $@
-	@$(CC) main.o -L. -llazy -L../log -llog -o $@
+	@$(CXX) main.o -L. -llazy -L../log -llog -o $@
 
 test: lazy
 	@$(MAKE) sub_test

@@ -1,6 +1,7 @@
-.PHONY: all test clean sub_test sub_test_clean
+.PHONY: all test clean test_prefix sub_test sub_test_clean
 
 CFLAGS += -std=c17 -O3 -Wall -pedantic -Werror -I..
+CXXFLAGS += -std=c++20 -O3 -Wall -pedantic -Werror -I..
 
 all: .mdp_run
 	@$(MAKE) test
@@ -13,6 +14,13 @@ all: .mdp_run
 %.o: %.c
 	@echo cc $@
 	@$(CC) $(CFLAGS) -c $<
+
+%.o: %.cpp
+	@echo c++ $@
+	@$(CXX) $(CXXFLAGS) -c $<
+
+test_prefix:
+	@echo "testing ${APP} ... \c"
 
 sub_test:
 	@$(MAKE) --directory=tests
