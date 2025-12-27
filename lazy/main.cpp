@@ -6,7 +6,7 @@ int main(int argc, const char* argv[]) {
 	try {
 		if (argc != 2) { log_fatal("Syntax", "lazy <file path>"); }
 		Lazy lazy { std::cin, argv[1] };
-		lazy.process();
+		lazy();
 		return EXIT_SUCCESS;
 	} catch (const terminate_exception& ex) {
 		return EXIT_FAILURE;
