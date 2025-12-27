@@ -10,8 +10,7 @@ void log_fatal(const char* message, const char* reason) {
 	if (! reason) { reason = "NULL"; }
 #line 52
 	std::cerr << message << ": " << reason << "\n";
-#line 64
-	fprintf(stderr, "%s: %s\n", message, reason);
+#line 65
 	throw terminate_exception { };
 #line 38
 }
