@@ -23,8 +23,11 @@ namespace csv {
 				break;
 			}
 			if (! quoting) {
-				while (ch_ >= 0 && ch_ < ' ' && ch_ != '\n') { ch_ = in_.get(); }
-				if (ch_ == '\n' || ch_ == SEPARATOR) { break; }
+				if (ch_ == '\r') {
+					ch_ = in_.get();
+					if (ch_ != '\n') { log_fatal("Falsches Zeilenende", ""); }
+				}
+				if (ch_ < 0 || ch_ == '\n' || ch_ == SEPARATOR) { break; }
 			}
 
 			value.push_back(ch_);
