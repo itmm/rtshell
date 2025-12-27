@@ -20,5 +20,14 @@ namespace ta {
 			int next_ch();
 	};
 		
+	class Writer {
+			std::ostream& out_;
+			int last_ = '\n';
+
+		public:
+			Writer(std::ostream& out): out_ { out } { }
+			void put_ch(int ch);
+			void open_next_file(const std::string& name);
+	};
 };
 

@@ -1,29 +1,28 @@
 #include <fstream>
 #include <iostream>
 #include "log/log.h"
+#include "ta/ta.h"
 
-static inline void process(const char* path) {
-	std::cout << "%file " << path << "\n";
+static inline void process(ta::Writer& writer, const char* path) {
 	std::ifstream f { path };
 	if (! f) { log_fatal("Kann Datei nicht öffnen", ""); }
 
-	bool last_is_newline = true;
+	writer.open_next_file(path);
+
 	int ch;
 	while ((ch = f.get()) >= 0) {
-		if (last_is_newline) {
-			if (ch == '%') { putchar(ch); }
-		}
-		std::cout.put(ch);
-		last_is_newline = (ch == '\n');
+		writer.put_ch(ch);
 	}
-	if (! last_is_newline) { std::cout.put('\n'); }
 }
 
 int main(int argc, const char *argv[]) {
 	try {
-		const char** path = argv + 1;
-		for (int i = argc - 1; i; --i) {
-			process(*path++);
+		if (argc >= 2) {
+			ta::Writer writer { std::cout };
+			const char** paths = argv + 1;
+			for (int i = argc - 1; i; --i) {
+				process(writer, *paths++);
+			}
 		}
 		return EXIT_SUCCESS;
 	} catch (const terminate_exception&) {

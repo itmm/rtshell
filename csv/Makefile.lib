@@ -1,4 +1,4 @@
 ../csv/libcsv.a: ../csv/csv.o
-	@$(MAKE) --quiet --directory=../csv libcsv.a
+	@$(MAKE) --directory=../csv libcsv.a
 
 ../csv/csv.o: ../csv/csv.h ../log/log.h
