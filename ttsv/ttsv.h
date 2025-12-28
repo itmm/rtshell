@@ -5,15 +5,18 @@
 
 namespace ttsv {
 	
-	class Writer {
-			std::ostream& out_;
-			std::string cell_prefix_;
+	class ostream: private std::streambuf, public std::ostream  {
+			std::ostream& forward_;
+
+			int overflow(int ch) override;
 
 		public:
-			Writer(std::ostream& out): out_ { out } { }
-			void write_cell(const std::string& value);
+			ostream(std::ostream& forward):
+				std::ostream { this }, forward_ { forward }
+			{ }
+
+			void close_cell();
 			void close_line();
-			
 	};
 		
 };
