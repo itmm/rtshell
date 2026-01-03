@@ -12,7 +12,7 @@ all: .mdp_run
 
 %.o: %.cpp
 	@echo c++ $@
-	@$(CXX) $(CXXFLAGS) -c $<
+	@$(CXX) $(CXXFLAGS) -c $< -o $@
 
 test_prefix:
 	@echo "testing ${APP} ... \c"

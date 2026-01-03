@@ -6,6 +6,46 @@
 
 namespace csv {
 
+	const char SEPARATOR = ',';
+
+	template<class CharT, class Traits = std::char_traits<CharT>>
+	class basic_ostream:
+		private std::basic_streambuf<CharT, Traits>,
+		public std::basic_ostream<CharT, Traits>
+	{
+			std::basic_ostream<CharT, Traits>& out_;
+			std::string cell_;
+			bool needs_escape_ { false };
+
+			Traits::int_type overflow(Traits::int_type ch) override {
+				CharT c { Traits::to_char_type(ch) };
+				if (c == '"') { cell_ += '"'; }
+				cell_ += c;
+				if (c < ' ' || c == '"' || c == SEPARATOR) {
+					needs_escape_ = true;
+				}
+				return 0;
+			}
+
+			void finish_cell() {
+				if (needs_escape_) { out_.put('"'); }
+				out_ << cell_;
+				if (needs_escape_) { out_.put('"'); }
+				cell_.clear();
+				needs_escape_ = false;
+			}
+
+		public:
+			explicit basic_ostream(std::basic_ostream<CharT, Traits>& out):
+				std::basic_ostream<CharT, Traits>(this), out_ { out }
+			{ }
+
+			void close_cell() { finish_cell(); out_.put(SEPARATOR); }
+			void close_line() { finish_cell(); out_ << "\r\n"; }
+	};
+
+	using ostream = basic_ostream<char>;
+
 	template<class CharT, class Traits = std::char_traits<CharT>>
 	class basic_istream:
 		private std::basic_streambuf<CharT, Traits>,
@@ -63,8 +103,6 @@ namespace csv {
 			}
 
 		public:
-			static const CharT SEPARATOR = ',';
-
 			basic_istream(std::istream& source):
 				std::basic_istream<CharT, Traits> { this }, source_ { source }
 			{

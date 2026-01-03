@@ -4,12 +4,12 @@
 #include "ttsv/ttsv.h"
 
 int main(void) {
-	csv::istream in { std::cin };
-	ttsv::ostream out { std::cout };
+	ttsv::istream in { std::cin };
+	csv::ostream out { std::cout };
 
 	for (;;) {
-		int ch;
-		while ((ch = in.get()) >= 0) { out.put(ch); }
+		char ch;
+		while (in.get(ch)) { out.put(ch); }
 		if (in.next_cell()) { out.close_cell(); continue; }
 		out.close_line();
 		if (in.next_line()) { continue; }

@@ -1,5 +1,5 @@
 ../csv/libcsv.a: ../csv/csv.o
-	@$(MAKE) --directory=../csv libcsv.a
+	$(MAKE) --directory=../csv libcsv.a
 
 include ../csv/Makefile.deps
 
