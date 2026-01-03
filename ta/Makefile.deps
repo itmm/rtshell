@@ -1,2 +1,2 @@
-../ta/ta.h: ../log/log.h
+../ta/ta.h: ../marked-files/marked-files.h ../log/log.h
 ../ta/ta.o: ../ta/ta.h

@@ -57,11 +57,11 @@ namespace marked_files {
 				std::string line;
 				if (! std::getline(*this, line)) { return { }; }
 				line = ch + line;
-				auto idx { line.index(' ') };
+				auto idx { line.find(' ') };
 				if (idx != std::string::npos) {
 					return Command { line.substr(0, idx), line.substr(idx + 1) };
 				}
-				return Command { line };
+				return Command { line, std::string { } };
 			}
 	};
 
@@ -96,8 +96,8 @@ namespace marked_files {
 
 			void send_command(const std::string& name, const std::string& args) {
 				if (last_ != '\n') { this->put('\n'); }
-				forward_ << '%' << command;
-				if (! args.empty() { forward_ << ' ' << args; }
+				forward_ << '%' << name;
+				if (! args.empty()) { forward_ << ' ' << args; }
 				forward_ << '\n';
 			}
 	};
