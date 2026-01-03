@@ -1,7 +1,7 @@
 include ../Makefile.base
 include Makefile.deps
 
-../marked-files/libmarked-files.a: ../marked-files/marked-files.h
+../marked-files/libmarked-files.a: ../marked-files/marked-files.o
 	@echo building $@
 	@$(AR) -rc $@ $^
 
