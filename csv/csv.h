@@ -2,30 +2,98 @@
 
 #include <iostream>
 
+#include "log/log.h"
+
 namespace csv {
 
-	class istream: private std::streambuf, public std::istream {
-			std::istream& source_;
-			char ch_ = ' ';
+	template<class CharT, class Traits = std::char_traits<CharT>>
+	class basic_istream:
+		private std::basic_streambuf<CharT, Traits>,
+		public std::basic_istream<CharT, Traits>
+	{
+			std::basic_istream<CharT, Traits>& source_;
+			CharT ch_ = ' ';
 			bool quoting_ { false };
 			bool eof_ { false };
 
-			void next_ch();
+			void next_ch() {
+				if (! eof_) {
+					auto got { source_.get() };
+					if (! Traits::eq_int_type(got, Traits::eof())) {
+						ch_ = Traits::to_char_type(got);
+					} else {
+						eof_ = true;
+					}
+				}
+			}
 
-			int_type process_next_ch();
-			int_type underflow() override;
+			Traits::int_type process_next_ch() {
+				next_ch();
+
+				if (ch_ == '"' && ! quoting_) {
+					quoting_ = true;
+					next_ch();
+				}
+				if (ch_ == '"' /* && quoting_ */) {
+					next_ch();
+					if (eof_  || ch_ != '"') { quoting_ = false; }
+				}
+				if (eof_) {
+					if (quoting_) { log_fatal("Offener CSV String", ""); }
+					return Traits::eof();
+				} else if (! quoting_) {
+					if (ch_ == '\r') {
+						next_ch();
+						if (ch_ != '\n') { log_fatal("Falsches Zeilenende", ""); }
+					}
+					if (eof_ || ch_ == '\n' || ch_ == SEPARATOR) {
+						return Traits::eof();
+					}
+				}
+				this->setg(&ch_, &ch_, &ch_ + 1);
+				return Traits::to_int_type(ch_);
+			}
+
+			Traits::int_type underflow() override {
+				if (eof_) { return Traits::eof(); }
+				if (! quoting_ && (ch_ == '\n' || ch_ == SEPARATOR)) {
+					return Traits::eof();
+				}
+				return process_next_ch();
+			}
 
 		public:
-			static const char SEPARATOR = ',';
+			static const CharT SEPARATOR = ',';
 
-			istream(std::istream& source):
-				std::istream { this }, source_ { source }
+			basic_istream(std::istream& source):
+				std::basic_istream<CharT, Traits> { this }, source_ { source }
 			{
-				setg(&ch_, &ch_ + 1, &ch_ + 1);
+				this->setg(&ch_, &ch_ + 1, &ch_ + 1);
 			}
 			
-			bool next_cell();
-			bool next_line();
+			bool next_cell() {
+				while (this->get() >= 0) { }
+				if (! eof_ && ch_ == SEPARATOR) {
+					if (process_next_ch() >= 0) {
+						this->clear();
+						return true;
+					}
+				}
+				return false;
+			}
+
+			bool next_line() {
+				while (next_cell()) { }
+				if (! eof_ && ch_ == '\n') {
+					if (process_next_ch() >= 0) {
+						this->clear();
+						return true;
+					}
+				}
+				return false;
+			}
 	};
+
+	using istream = basic_istream<char>;
 
 }
