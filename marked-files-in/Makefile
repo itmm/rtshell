@@ -1,9 +1,9 @@
 include ../Makefile.base
+include ../log/Makefile.lib
 include Makefile.lib
 
-test: ../marked-files-in/libmarked-files-in.a
-	@#$(MAKE) sub_test
+test: libmarked-files-in.a
+	# done
 
 clean:
-	@rm -f libmarked-files-in.a marked-files-in.o
-	@#$(MAKE) sub_test_clean
+	$(RM) libmarked-files-in.a marked-files-in.o

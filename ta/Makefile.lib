@@ -1,6 +1,7 @@
-../ta/libta.a: ../ta/ta.o
-	@echo building $@
-	@$(AR) -rc $@ $^
+vpath ta.% ../ta
+vpath libta.a ../ta
 
-../ta/ta.h: ../marked-files-out/marked-files-out.h ../marked-files-in/marked-files-in.h ../log/log.h
-../ta/ta.o: ../ta/ta.h
+libta.a: ta.o
+
+ta.h: marked-files-out.h marked-files-in.h log.h
+ta.o: ta.h

@@ -1,5 +1,9 @@
-../md5/libmd5.a: ../md5/md5.o
-	@echo building $@
-	@$(AR) -rc $@ $^
+vpath md5.% ../md5
+vpath libmd5.a ../md5
 
-../md5/md5.o: ../md5/md5.h ../log/log.h
+libmd5.a: md5.o
+
+md5.o: md5.h log.h
+
+LIBS_H += md5.h
+LIBS_O += libmd5.a

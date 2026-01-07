@@ -1,16 +1,15 @@
 include ../Makefile.base
 include ../log/Makefile.lib
 include ../ta/Makefile.lib
+include ../marked-files-in/Makefile.lib
+include ../marked-files-out/Makefile.lib
 
 test: tamv
 	@#$(MAKE) sub_test
 
-tamv: tamv.o ../ta/libta.a ../log/liblog.a
-	@echo building $@
-	@$(CXX) tamv.o -L../ta -lta -L../log -llog -o $@
+tamv: tamv.o $(LIBS_O)
 
-tamv.o: ../ta/ta.h ../log/log.h
+tamv.o: $(LIBS_H)
 
 clean:
-	@rm -f tamv tamv.o
-	@#$(MAKE) sub_test_clean
+	$(RM) tamv tamv.o

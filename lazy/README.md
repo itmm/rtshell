@@ -8,7 +8,7 @@ Die eigentliche Funktionalität ist in eine Bibliothek gepackt. Das eigentliche
 Programm in `main.cpp` wird dadurch sehr übersichtlich:
 
 ```c++
-#include "lazy.h"
+#include "lazy/lazy.h"
 #include "log/log.h"
 
 int main(int argc, const char* argv[]) {

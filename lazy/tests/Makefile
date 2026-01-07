@@ -13,56 +13,56 @@ TESTS := test_no_output \
 
 .PHONY: $(TESTS)
 
-test: test_prefix $(TESTS)
-	@echo ok
+test: $(TESTS)
+	# ok
 
 clean:
-	@rm -f t e
+	$(RM) t e
 
 test_no_output:
-	@rm -f t
-	@cat /dev/null > e
-	@cat e | ../lazy t
-	@diff t e
-	@rm t e
+	$(RM) t
+	cat /dev/null > e
+	cat e | ../lazy t
+	diff t e
+	$(RM) t e
 
 test_change:
-	@echo "abc" > t
-	@echo "xyz" > e
-	@cat e | ../lazy t
-	@diff t e
-	@rm t e
+	echo "abc" > t
+	echo "xyz" > e
+	cat e | ../lazy t
+	diff t e
+	$(RM) t e
 
 test_increase:
-	@echo "abc" > t
-	@echo "abcdef" > e
-	@cat e | ../lazy t
-	@diff t e
-	@rm t e
+	echo "abc" > t
+	echo "abcdef" > e
+	cat e | ../lazy t
+	diff t e
+	$(RM) t e
 
 test_decrease:
-	@echo "abcdef" > t
-	@echo "abc" > e
-	@cat e | ../lazy t
-	@diff t e
-	@rm t e
+	echo "abcdef" > t
+	echo "abc" > e
+	cat e | ../lazy t
+	diff t e
+	$(RM) t e
 
 test_truncate:
-	@echo "abc" > t
-	@cat /dev/null > e
-	@cat e | ../lazy t
-	@diff t e
-	@rm t e
+	echo "abc" > t
+	cat /dev/null > e
+	cat e | ../lazy t
+	diff t e
+	$(RM) t e
 
 test_dont_modify:
-	@cp old-file.txt e
-	@cat e | ../lazy old-file.txt
-	@[ old-file.txt -ot e ]
-	@rm e
+	cp old-file.txt e
+	cat e | ../lazy old-file.txt
+	[ old-file.txt -ot e ]
+	$(RM) e
 
 test_dont_modify_big:
-	@cp old-big.txt e
-	@cat e | ../lazy old-big.txt
-	@[ old-big.txt -ot e ]
-	@rm e
+	cp old-big.txt e
+	cat e | ../lazy old-big.txt
+	[ old-big.txt -ot e ]
+	$(RM) e
 

@@ -1,9 +1,9 @@
 include ../Makefile.base
+include ../log/Makefile.lib
 include Makefile.lib
 
-test: ../ttsv/libttsv.a
-	@#$(MAKE) sub_test
+test: libttsv.a
+	# done
 
 clean:
-	@rm -f libttsv.a ttsv.o
-	@#$(MAKE) sub_test_clean
+	$(RM) libttsv.a ttsv.o

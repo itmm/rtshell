@@ -1,16 +1,15 @@
 include ../Makefile.base
 include ../log/Makefile.lib
 include ../ta/Makefile.lib
+include ../marked-files-in/Makefile.lib
+include ../marked-files-out/Makefile.lib
 
 test: tarm
-	@#$(MAKE) sub_test
+	# done
 
-tarm: tarm.o ../ta/libta.a ../log/liblog.a
-	@echo building $@
-	@$(CXX) tarm.o -L../ta -lta -L../log -llog -o $@
+tarm: tarm.o $(LIBS_O)
 
-tarm.o: ../ta/ta.h ../log/log.h
+tarm.o: $(LIBS_H)
 
 clean:
-	@rm -f tarm tarm.o
-	@#$(MAKE) sub_test_clean
+	$(RM) tarm tarm.o

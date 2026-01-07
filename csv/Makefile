@@ -2,12 +2,10 @@ include ../Makefile.base
 include ../log/Makefile.lib
 include Makefile.lib
 
-t_csv: ../csv/libcsv.a ../log/liblog.a
+t_csv: t_csv.o $(LIBS_O)
 
 test: t_csv
-	@echo "testing csv ... \c";
-	@./t_csv
-	@echo "ok"
+	./t_csv
 
 clean:
-	@rm -f libcsv.a csv.o
+	$(RM) libcsv.a csv.o t_csv.o t_csv

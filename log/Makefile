@@ -1,8 +1,8 @@
 include ../Makefile.base
 include Makefile.lib
 
-test: ../log/liblog.a
-	@echo >/dev/null
+test: liblog.a
+    # done
 
 clean:
-	@rm -f liblog.a log.o
+	$(RM) liblog.a log.o

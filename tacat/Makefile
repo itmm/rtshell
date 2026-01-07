@@ -1,16 +1,15 @@
 include ../Makefile.base
 include ../log/Makefile.lib
 include ../ta/Makefile.lib
+include ../marked-files-in/Makefile.lib
+include ../marked-files-out/Makefile.lib
 
 test: tacat
-	@#$(MAKE) sub_test
+    # ok
 
-tacat: tacat.o ../ta/libta.a ../log/liblog.a
-	@echo building $@
-	@$(CXX) tacat.o -L../ta -lta -L../log -llog -o $@
+tacat: tacat.o $(LIBS_O)
 
-tacat.o: ../ta/ta.h ../log/log.h
+tacat.o: $(LIBS_H)
 
 clean:
-	@rm -f tacat tacat.o
-	@#$(MAKE) sub_test_clean
+	$(RM) tacat tacat.o

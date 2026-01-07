@@ -1,6 +1,6 @@
-../ttsv/libttsv.a: ../ttsv/ttsv.o
-	@echo building $@
-	@$(AR) -rc $@ $^
+vpath ttsv.% ../ttsv
+vpath libttsv.a ../ttsv
 
-../ttsv/ttsv.h: ../log/log.h
-../ttsv/ttsv.o: ../ttsv/ttsv.h
+libttsv.a: ttsv.o
+
+ttsv.o: ttsv.h log.h

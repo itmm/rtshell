@@ -1,6 +1,6 @@
-../csv/libcsv.a: ../csv/csv.o
-	@echo building $@
-	@$(AR) -rc $@ $^
+vpath csv.% ../csv
+vpath libcsv.a ../csv
 
-../csv/csv.h: ../log/log.h
-../csv/csv.o: ../csv/csv.h
+libcsv.a: csv.o
+
+csv.o: csv.cpp csv.h log.h

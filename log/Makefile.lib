@@ -1,5 +1,9 @@
-../log/liblog.a: ../log/log.o
-	@echo building $@
-	@$(AR) -rc $@ $^
+vpath log.% ../log
+vpath liblog.a ../log
 
-../log/log.o: ../log/log.h
+liblog.a: log.o
+
+log.o: log.h
+
+LIBS_H += log.h
+LIBS_O += liblog.a

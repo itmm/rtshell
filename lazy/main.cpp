@@ -1,5 +1,5 @@
 #line 11 "README.md"
-#include "lazy.h"
+#include "lazy/lazy.h"
 #include "log/log.h"
 
 int main(int argc, const char* argv[]) {

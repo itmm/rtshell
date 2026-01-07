@@ -4,14 +4,11 @@ include ../csv/Makefile.lib
 include ../ttsv/Makefile.lib
 
 test: ttsv2csv
-	@# $(MAKE) sub_test
+	# done
 
-ttsv2csv: ttsv2csv.o ../log/liblog.a ../csv/libcsv.a ../ttsv/libttsv.a
-	@echo building $@
-	@$(CXX) ttsv2csv.o -L../csv -lcsv -L../ttsv -lttsv -L../log -llog -o $@
+ttsv2csv: ttsv2csv.o $(LIBS_O)
 
-ttsv2csv.o: ../csv/csv.h ../ttsv/ttsv.h ../log/log.h
+ttsv2csv.o: $(LIBS_H)
 
 clean:
-	@rm -f ttsv2csv ttsv2csv.o
-	@# $(MAKE) sub_test_clean
+	$(RM) ttsv2csv ttsv2csv.o

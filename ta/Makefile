@@ -1,9 +1,11 @@
 include ../Makefile.base
+include ../log/Makefile.lib
+include ../marked-files-in/Makefile.lib
+include ../marked-files-out/Makefile.lib
 include Makefile.lib
 
-test: ../ta/libta.a
-	@#$(MAKE) sub_test
+test: libta.a
+	# done
 
 clean:
-	@rm -f libta.a ta.o
-	@#$(MAKE) sub_test_clean
+	$(RM) libta.a ta.o
