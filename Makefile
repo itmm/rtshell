@@ -1,6 +1,6 @@
-PROJECTS := log lazy marked-files-in marked-files-out ta tac tals tacat
-PROJECTS += tarm tamv csv ttsv csv2ttsv ttsv2csv md5 md5add
-#PROJECTS += md5add md5chk
+PROJECTS := log lazy marked-files-in marked-files-out ta
+#PROJECTS := log lazy marked-files-in marked-files-out ta tac tals tacat
+#PROJECTS += tarm tamv csv ttsv csv2ttsv ttsv2csv md5 md5add
 
 CLEAN_TARGETS := $(addsuffix .clean,$(PROJECTS))
 

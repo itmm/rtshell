@@ -30,9 +30,8 @@ vpath liblog.a ../log
 
 liblog.a: log.o
 
-log.o: log.h
+include ../log/log.d
 
-LIBS_H += log_h
-LIBS_O += liblog.a
+LIBS += liblog.a
 ```
 

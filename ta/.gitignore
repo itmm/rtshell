@@ -1,3 +1,4 @@
 *.o
+*.d
 libta.a
 .mdp_run

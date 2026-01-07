@@ -2,11 +2,9 @@ include ../Makefile.base
 include ../log/Makefile.lib
 include Makefile.lib
 
-main.o: ../lazy/lazy.h ../log/log.h
+include main.d
 
-lazy: main.o ../lazy/liblazy.a ../log/liblog.a
-	@echo building $@
-	@$(CXX) main.o -L. -llazy -L../log -llog -o $@
+lazy: main.o $(LIBS)
 
 test: lazy
 	@$(MAKE) sub_test

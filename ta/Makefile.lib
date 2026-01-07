@@ -3,5 +3,6 @@ vpath libta.a ../ta
 
 libta.a: ta.o
 
-ta.h: marked-files-out.h marked-files-in.h log.h
-ta.o: ta.h
+include ../ta/ta.d
+
+LIBS += libta.a

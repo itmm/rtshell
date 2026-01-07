@@ -1,4 +1,5 @@
 *.o
+*.d
 liblazy.a
 lazy
 .mdp_run

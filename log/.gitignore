@@ -1,3 +1,4 @@
 *.o
+*.d
 liblog.a
 .mdp_run

@@ -1,3 +1,4 @@
 *.o
+*.d
 libmarked-files-in.a
 .mdp_run

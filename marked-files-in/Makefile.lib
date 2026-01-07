@@ -3,8 +3,6 @@ vpath libmarked-files-in.a ../marked-files-in
 
 libmarked-files-in.a: marked-files-in.o
 
-marked-files-in.h: log.h
-marked-files-in.o: marked-files-in.h
+include ../marked-files-in/marked-files-in.d
 
-LIBS_H += marked-files-in.h
-LIBS_O += libmarked-files-in.a
+LIBS += libmarked-files-in.a
