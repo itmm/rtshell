@@ -1,10 +1,9 @@
 .PHONY: all test clean sub_test sub_test_clean
 
-INCLUDES := -I..
+CPPFLAGS += -I..
 CXXFLAGS += -std=c++20 -O3 -Wall -pedantic -Werror
 
 LINK.o = $(CXX) $(LDFLAGS) $(TARGET_ARCH)
-COMPILE.cc = $(CXX) $(CXXFLAGS) $(INCLUDES) $(CPPFLAGS) $(TARGET_ARCH) -c
 
 lib%.a:
 	$(AR) -rc $@ $^
