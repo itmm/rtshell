@@ -6,7 +6,11 @@ CLEAN_TARGETS := $(addsuffix .clean,$(PROJECTS))
 
 .PHONY: all clean $(PROJECTS) $(CLEAN_TARGETS)
 
-all: $(PROJECTS)
+all: marked-files-out/Makefile.base $(PROJECTS)
+
+marked-files-out/Makefile.base: Makefile.base
+	cp $< $@
+	chmod a-w $@
 
 define GEN_PRJ
 $(1)
