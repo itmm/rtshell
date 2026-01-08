@@ -14,7 +14,7 @@ TESTS := test_no_output \
 
 .PHONY: $(TESTS)
 
-test: test_prefix $(TESTS)
+test: $(TESTS)
 	@echo ok
 
 clean:

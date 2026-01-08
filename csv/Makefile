@@ -8,6 +8,11 @@ test: t_csv
 	./t_csv
 
 include t_csv.d
+include csv.d
+
+library: $(LIB)
+
+$(LIB): $(LIB)(csv.o)
 
 clean:
 	$(RM) libcsv.a csv.o t_csv.o t_csv

@@ -1,10 +1,8 @@
-DIR := ../md5
-LIB := $(DIR)/libmd5.a
+DIR = ../md5
+LIB = libmd5.a
+FULL_LIB = $(DIR)/$(LIB)
 
-vpath md5.% $(DIR)
+$(FULL_LIB): $(DIR)/md5.cpp $(DIR)/md5.h
+	$(MAKE) -C $(DIR) lib
 
-$(LIB): $(LIB)(md5.o)
-
-include $(DIR)/md5.d
-
-LIBS += $(LIB)
+LIBS += $(FULL_LIB)

@@ -9,24 +9,28 @@ include main.d
 
 lazy: main.o $(LIBS)
 
+library: $(LIB)
+
+$(LIB): $(LIB)(lazy.o)
+
 test: lazy
-	@$(MAKE) sub_test
+	$(MAKE) sub_test
 
 clean:
-	@rm -f lazy liblazy.a lazy.o main.o
-	@$(MAKE) sub_test_clean
+	$(RM) lazy liblazy.a lazy.o main.o
+	$(MAKE) sub_test_clean
 ```
 
 In `Makefile.lib`:
 
 ```Makefile
-vpath lazy.% ../lazy
-vpath liblazy.a ../lazy
+DIR = ../lazy
+LIB = liblazy.a
+FULL_LIB = $(DIR)/$(LIB)
 
-liblazy.a: lazy.o
+$(FULL_LIB): $(DIR)/README.md
+	$(MAKE) -C $(DIR) lib
 
-include lazy.d
-
-LIBS += liblazy.a
+LIBS += $(FULL_LIB)
 ```
 

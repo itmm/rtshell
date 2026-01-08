@@ -1,8 +1,14 @@
 include ../Makefile.base
 include Makefile.lib
 
-test: $(LIBS)
+test: $(LIB)
     # done
 
+include log.d
+
+library: $(LIB)
+
+$(LIB): $(LIB)(log.o)
+
 clean:
-	$(RM) liblog.a log.o
+	$(RM) $(LIB) log.o

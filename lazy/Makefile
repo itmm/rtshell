@@ -6,9 +6,13 @@ include main.d
 
 lazy: main.o $(LIBS)
 
+library: $(LIB)
+
+$(LIB): $(LIB)(lazy.o)
+
 test: lazy
-	@$(MAKE) sub_test
+	$(MAKE) sub_test
 
 clean:
-	@rm -f lazy liblazy.a lazy.o main.o
-	@$(MAKE) sub_test_clean
+	$(RM) lazy liblazy.a lazy.o main.o
+	$(MAKE) sub_test_clean

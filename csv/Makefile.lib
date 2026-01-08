@@ -1,10 +1,8 @@
-DIR := ../csv
-LIB := $(DIR)/libcsv.a
+DIR = ../csv
+LIB = libcsv.a
+FULL_LIB = $(DIR)/$(LIB)
 
-vpath csv.% $(DIR)
+$(FULL_LIB): $(DIR)/csv.cpp $(DIR)/csv.h ../log/log.h
+	$(MAKE) -C $(DIR) lib
 
-$(LIB): $(LIB)(csv.o)
-
-include $(DIR)/csv.d
-
-LIBS += $(LIB)
+LIBS += $(FULL_LIB)

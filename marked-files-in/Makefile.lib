@@ -1,10 +1,9 @@
 DIR := ../marked-files-in
-LIB := $(DIR)/libmarked-files-in.a
+LIB := libmarked-files-in.a
+FULL_LIB := $(DIR)/$(LIB)
 
-vpath marked-files-in.% $(DIR)
 
-$(LIB): $(LIB)(marked-files-in.o)
+$(FULL_LIB): $(DIR)/marked-files-in.h $(DIR)/marked-files-in.cpp ../log/log.h
+	$(MAKE) -C $(DIR) lib
 
-include $(DIR)/marked-files-in.d
-
-LIBS += $(LIB)
+LIBS += $(FULL_LIB)

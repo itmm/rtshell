@@ -1,10 +1,8 @@
-DIR := ../ttsv
-LIB := $(DIR)/libttsv.a
+DIR = ../ttsv
+LIB = libttsv.a
+FULL_LIB = $(DIR)/$(LIB)
 
-vpath ttsv.% $(DIR)
+$(FULL_LIB): $(DIR)/ttsv.cpp $(DIR)/ttsv.h ../log/log.h
+	$(MAKE) -C $(DIR) lib
 
-$(LIB): $(LIB)(ttsv.o)
-
-include $(DIR)/ttsv.d
-
-LIBS += $(LIB)
+LIBS += $(FULL_LIB)

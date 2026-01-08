@@ -1,10 +1,10 @@
-DIR := ../ta
-LIB := $(DIR)/libta.a
+DIR = ../ta
+LIB = libta.a
+FULL_LIB = $(DIR)/$(LIB)
 
-vpath ta.% $(DIR)
+$(FULL_LIB): $(DIR)/ta.h $(DIR)/ta.cpp ../log/log.h \
+		 ../marked-files-in/marked-files-in.h \
+		 ../marked-files-out/marked-files-out.h
+	$(MAKE) -C $(DIR) lib
 
-$(LIB): $(LIB)(ta.o)
-
-include $(DIR)/ta.d
-
-LIBS += $(LIB)
+LIBS += $(FULL_LIB)

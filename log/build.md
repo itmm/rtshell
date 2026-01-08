@@ -8,11 +8,17 @@ Im `./Makefile` werden die Grundlagen gelegt, um
 include ../Makefile.base
 include Makefile.lib
 
-test: liblog.a
+test: $(LIB)
     # done
 
+include log.d
+
+library: $(LIB)
+
+$(LIB): $(LIB)(log.o)
+
 clean:
-	$(RM) liblog.a log.o
+	$(RM) $(LIB) log.o
 ```
 
 Es gibt ausnahmsweise keine Testfälle für das Loggen: da es ständig verwendet
@@ -25,13 +31,13 @@ Ich baue eine statische Bibliothek. Um in anderen Makefiles diese zu verwenden,
 kann die Datei `Makefile.lib` eingebunden werden:
 
 ```Makefile
-vpath log.% ../log
-vpath liblog.a ../log
+DIR = ../log
+LIB = liblog.a
+FULL_LIB = $(DIR)/$(LIB)
 
-liblog.a: log.o
+$(FULL_LIB): $(DIR)/README.md
+	$(MAKE) -C $(DIR) lib
 
-include ../log/log.d
-
-LIBS += liblog.a
+LIBS += $(FULL_LIB)
 ```
 
