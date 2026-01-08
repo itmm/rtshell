@@ -5,11 +5,11 @@ include ../marked-files-in/Makefile.lib
 include ../marked-files-out/Makefile.lib
 
 test: tamv
-	@#$(MAKE) sub_test
+	# done
 
-tamv: tamv.o $(LIBS_O)
+tamv: tamv.o $(LIBS)
 
-tamv.o: $(LIBS_H)
+include tamv.d
 
 clean:
 	$(RM) tamv tamv.o

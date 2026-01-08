@@ -3,4 +3,6 @@ vpath libcsv.a ../csv
 
 libcsv.a: csv.o
 
-csv.o: csv.cpp csv.h log.h
+include ../csv/csv.d
+
+LIBS += libcsv.a

@@ -6,9 +6,9 @@ include ../ttsv/Makefile.lib
 test: csv2ttsv
 	# done
 
-csv2ttsv: csv2ttsv.o $(LIBS_O)
+csv2ttsv: csv2ttsv.o $(LIBS)
 
-csv2ttsv.o: $(LIBS_H)
+include csv2ttsv.d
 
 clean:
 	$(RM) csv2ttsv csv2ttsv.o

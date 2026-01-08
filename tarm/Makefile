@@ -7,9 +7,9 @@ include ../marked-files-out/Makefile.lib
 test: tarm
 	# done
 
-tarm: tarm.o $(LIBS_O)
+tarm: tarm.o $(LIBS)
 
-tarm.o: $(LIBS_H)
+include tarm.d
 
 clean:
 	$(RM) tarm tarm.o

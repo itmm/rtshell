@@ -1,3 +1,4 @@
 *.o
+*.d
 tacat
 .mdp_run

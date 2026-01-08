@@ -1,3 +1,4 @@
 *.o
+*.d
 md5add
 .mdp_run

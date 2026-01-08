@@ -1,3 +1,4 @@
 tac
 *.o
+*.d
 .mdp_run

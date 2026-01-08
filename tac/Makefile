@@ -7,9 +7,9 @@ include ../marked-files-out/Makefile.lib
 test: tac
 	$(MAKE) sub_test
 
-tac: tac.o $(LIBS_O)
+include tac.d
 
-tac.o: $(LIBS_H)
+tac: tac.o $(LIBS)
 
 clean:
 	$(RM) tac tac.o .mdp_run

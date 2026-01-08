@@ -3,4 +3,6 @@ vpath libttsv.a ../ttsv
 
 libttsv.a: ttsv.o
 
-ttsv.o: ttsv.h log.h
+include ../ttsv/ttsv.d
+
+LIBS += libttsv.a

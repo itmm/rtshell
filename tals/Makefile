@@ -7,9 +7,9 @@ include ../marked-files-out/Makefile.lib
 test: tals
 	# done
 
-tals: tals.o $(LIBS_O)
+tals: tals.o $(LIBS)
 
-tals.o: $(LIBS_H)
+include tals.d
 
 clean:
 	$(RM) tals tals.o

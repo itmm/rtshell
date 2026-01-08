@@ -3,7 +3,6 @@ vpath libmd5.a ../md5
 
 libmd5.a: md5.o
 
-md5.o: md5.h log.h
+include ../md5/md5.d
 
-LIBS_H += md5.h
-LIBS_O += libmd5.a
+LIBS += libmd5.a

@@ -6,9 +6,9 @@ include ../log/Makefile.lib
 test: md5add
 	# done
 
-md5add: md5add.o $(LIBS_O)
+md5add: md5add.o $(LIBS)
 
-md5add.o: $(LIBS_H)
+include md5add.d
 
 clean:
 	$(RM) md5add md5add.o .mdp_run

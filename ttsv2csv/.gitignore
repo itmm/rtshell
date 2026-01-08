@@ -1,3 +1,4 @@
 *.o
+*.d
 ttsv2csv
 .mdp_run

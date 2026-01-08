@@ -7,9 +7,9 @@ include ../marked-files-out/Makefile.lib
 test: tacat
     # ok
 
-tacat: tacat.o $(LIBS_O)
+tacat: tacat.o $(LIBS)
 
-tacat.o: $(LIBS_H)
+include tacat.d
 
 clean:
 	$(RM) tacat tacat.o

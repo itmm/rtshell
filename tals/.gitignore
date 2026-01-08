@@ -1,3 +1,4 @@
 tals
 *.o
+*.d
 .mdp_run
