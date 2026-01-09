@@ -5,9 +5,14 @@ CLEAN_TARGETS := $(addsuffix .clean,$(PROJECTS))
 
 .PHONY: all clean $(PROJECTS) $(CLEAN_TARGETS)
 
-all: marked-files-out/Makefile.base $(PROJECTS)
+all: marked-files-out/base.mk marked-files-out/with-mdp.mk $(PROJECTS)
 
-marked-files-out/Makefile.base: Makefile.base
+marked-files-out/base.mk: base.mk
+	chmod a+w $@
+	cp $< $@
+	chmod a-w $@
+
+marked-files-out/with-mdp.mk: with-mdp.mk
 	chmod a+w $@
 	cp $< $@
 	chmod a-w $@

@@ -1,11 +1,9 @@
-include ../Makefile.base
-include ../log/Makefile.lib
-include Makefile.lib
+include ../base.mk
+include ../log/lib.mk
+include lib.mk
 
 test: $(LIBS)
 	# done
-
-library: $(LIB)
 
 $(LIB): $(LIB)(marked-files-in.o)
 

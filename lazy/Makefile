@@ -1,12 +1,11 @@
-include ../Makefile.base
-include ../log/Makefile.lib
-include Makefile.lib
+GENERATED := Makefile lib.mk lazy.h lazy.cpp
+include ../with-mdp.mk
+include ../log/lib.mk
+include lib.mk
 
 include main.d
 
 lazy: main.o $(LIBS)
-
-library: $(LIB)
 
 $(LIB): $(LIB)(lazy.o)
 

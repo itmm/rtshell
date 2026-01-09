@@ -1,8 +1,8 @@
-include ../Makefile.base
-include ../log/Makefile.lib
-include ../ta/Makefile.lib
-include ../marked-files-in/Makefile.lib
-include ../marked-files-out/Makefile.lib
+include ../base.mk
+include ../log/lib.mk
+include ../ta/lib.mk
+include ../marked-files-in/lib.mk
+include ../marked-files-out/lib.mk
 
 test: tamv
 	# done

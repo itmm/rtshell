@@ -1,7 +1,7 @@
-include ../Makefile.base
-include ../md5/Makefile.lib
-include ../marked-files-in/Makefile.lib
-include ../log/Makefile.lib
+include ../base.mk
+include ../md5/lib.mk
+include ../marked-files-in/lib.mk
+include ../log/lib.mk
 
 test: md5chk
 	# done

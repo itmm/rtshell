@@ -1,7 +1,7 @@
-include ../Makefile.base
-include ../log/Makefile.lib
-include ../csv/Makefile.lib
-include ../ttsv/Makefile.lib
+include ../base.mk
+include ../log/lib.mk
+include ../csv/lib.mk
+include ../ttsv/lib.mk
 
 test: csv2ttsv
 	# done

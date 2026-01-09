@@ -1,6 +1,6 @@
 APP := tac
 
-include ../../Makefile.base
+include ../../base.mk
 
 TESTS := test_simple test_escaping test_cascading test_empty test_empty_files
 

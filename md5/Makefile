@@ -1,6 +1,6 @@
-include ../Makefile.base
-include ../log/Makefile.lib
-include Makefile.lib
+include ../base.mk
+include ../log/lib.mk
+include lib.mk
 
 t_md5: t_md5.o $(LIBS)
 
@@ -9,8 +9,6 @@ include t_md5.d
 
 test: t_md5
 	./t_md5
-
-library: $(LIB)
 
 $(LIB): $(LIB)(md5.o)
 

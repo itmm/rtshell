@@ -1,15 +1,14 @@
 In `./Makefile`:
 
 ```Makefile
-include ../Makefile.base
-include ../log/Makefile.lib
-include Makefile.lib
+GENERATED := Makefile lib.mk lazy.h lazy.cpp
+include ../with-mdp.mk
+include ../log/lib.mk
+include lib.mk
 
 include main.d
 
 lazy: main.o $(LIBS)
-
-library: $(LIB)
 
 $(LIB): $(LIB)(lazy.o)
 
@@ -21,7 +20,7 @@ clean:
 	$(MAKE) sub_test_clean
 ```
 
-In `Makefile.lib`:
+In `lib.mk`:
 
 ```Makefile
 DIR = ../lazy
@@ -29,7 +28,7 @@ LIB = liblazy.a
 FULL_LIB = $(DIR)/$(LIB)
 
 $(FULL_LIB): $(DIR)/README.md
-	$(MAKE) -C $(DIR) lib
+	$(MAKE) -C $(DIR) $(LIB)
 
 LIBS += $(FULL_LIB)
 ```

@@ -5,15 +5,15 @@
 Im `./Makefile` werden die Grundlagen gelegt, um
 
 ```Makefile
-include ../Makefile.base
-include Makefile.lib
+GENERATED = Makefile inc.mk log.h log.cpp
+
+include ../with-mdp.mk
+include lib.mk
 
 test: $(LIB)
     # done
 
 include log.d
-
-library: $(LIB)
 
 $(LIB): $(LIB)(log.o)
 
@@ -28,7 +28,7 @@ wird, kann es en passant mitgetestet werden.
 ## Makefile.lib
 
 Ich baue eine statische Bibliothek. Um in anderen Makefiles diese zu verwenden,
-kann die Datei `Makefile.lib` eingebunden werden:
+kann die Datei `lib.mk` eingebunden werden:
 
 ```Makefile
 DIR = ../log
@@ -36,7 +36,7 @@ LIB = liblog.a
 FULL_LIB = $(DIR)/$(LIB)
 
 $(FULL_LIB): $(DIR)/README.md
-	$(MAKE) -C $(DIR) lib
+	$(MAKE) -C $(DIR) $(LIB)
 
 LIBS += $(FULL_LIB)
 ```

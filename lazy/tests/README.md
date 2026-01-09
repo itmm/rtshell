@@ -7,7 +7,9 @@ leer sein:
 ```Makefile
 APP := lazy
 
-include ../../Makefile.base
+INC_DIR = ../..
+GENERATED = Makefile
+include ../../with-mdp.mk
 
 TESTS := test_no_output \
 
