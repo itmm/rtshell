@@ -5,7 +5,7 @@
 Im `./Makefile` werden die Grundlagen gelegt, um
 
 ```Makefile
-GENERATED = Makefile inc.mk log.h log.cpp
+GENERATED = Makefile lib.mk log.h log.cpp
 
 include ../with-mdp.mk
 include lib.mk
