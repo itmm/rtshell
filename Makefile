@@ -12,17 +12,12 @@ marked-files-out/%.mk: %.mk
 	cp $< $@
 	chmod a-w $@
 
-define GEN_PRJ
+define GEN
 $(1)
-	@$$(MAKE) --directory=$$@
+	$$(MAKE) -C $$(basename $$@) $(2)
 endef
 
-define GEN_CLN
-$(1)
-	@$$(MAKE) --directory=$$(basename $$@) clean
-endef
-
-$(foreach prj,$(addsuffix :,$(PROJECTS)),$(eval $(call GEN_PRJ,$(prj))))
-$(foreach cln,$(addsuffix :,$(CLEAN_TARGETS)),$(eval $(call GEN_CLN,$(cln))))
+$(foreach prj,$(addsuffix :,$(PROJECTS)),$(eval $(call GEN,$(prj),all)))
+$(foreach cln,$(addsuffix :,$(CLEAN_TARGETS)),$(eval $(call GEN,$(cln),clean)))
 
 clean: $(CLEAN_TARGETS)
